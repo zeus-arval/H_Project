@@ -19,5 +19,3 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: cd backend/ && dotnet restore
-    - name: Build
-      run: dotnet build
