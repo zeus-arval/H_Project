@@ -1,0 +1,20 @@
+name: VueJS Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Vuejs
+        run: cd frontend/ && npm install i
+      - name: Build Frontend
+        run: npm build 
