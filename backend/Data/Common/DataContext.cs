@@ -94,12 +94,14 @@ namespace Backend.Data.Common
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<SectorData> Sectors { get; set; }
+        public DbSet<FormData> Forms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.Entity<SectorData>().Property(p => p.Id);
+            builder.Entity<FormData>().Property(p => p.Id);
 
             builder.Entity<SectorData>().HasData(
                 GenerateSectors()
