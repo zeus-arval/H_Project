@@ -19,13 +19,3 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: cd backend/ && dotnet restore
-  
-  build_frontend:
-    runs-on: ubuntu-latest
-    name: Build Vue
-    
-    steps:
-    - name: Setup Vuejs
-      run: cd frontend/ && npm install i
-    - name: Build Frontend
-      run: npm build 
