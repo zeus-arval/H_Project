@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Backend.Data.Form;
+using Backend.ViewModels;
 using Backend.Data.Common;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -17,12 +18,7 @@ namespace Backend.Controllers
 
         [HttpGet]
         public IActionResult GetSectors(){
-            var sectors = _context.Sectors?.Select(x => 
-                new {
-                    Name = x.Name,
-                    ParentName = FindParentName(x.ParentId)
-                    }
-                );
+            var sectors = _context.Sectors?.Select(x => new SectorViewModel(x.Name, FindParentName(x.ParentId)));
 
             return Ok(sectors);
         }
