@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build_backend:
 
     runs-on: ubuntu-latest
 
@@ -19,6 +19,13 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: cd backend/ && dotnet restore
+  
+  build_frontend:
+    runs-on: ubuntu-latest
+    name: Build Vue
+    
+    steps:
     - name: Setup Vuejs
-      uses: actions/checkout@v3
-      run: cd frontend/ && npm install i && npm build 
+      run: cd frontend/ && npm install i
+    - name: Build Frontend
+      run: npm build 
