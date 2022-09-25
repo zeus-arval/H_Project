@@ -1,36 +1,33 @@
 using System.Collections.Generic;
 using Backend.Domain.Form;
+using Backend.Data.Form;
+using Backend.Data.Common;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Linq;
 namespace Backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class SectorsController : ControllerBase
     {
-        private readonly List<Sector> _sectors;
-
-        public SectorsController() 
+        private readonly DataContext _context;
+        public SectorsController(DataContext context) 
         {
-            _sectors = new List<Sector>();   
+            _context = context;
         }
 
         [HttpGet]
         public IActionResult GetSectors(){
-            var sectors = _sectors!.AsQueryable();
+            var sectors = _context.Sectors?.Select(x => 
+                new {
+                    Name = x.Name,
+                    ParentName = FindParentName(x.ParentId)
+                    }
+                );
 
             return Ok(sectors);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetSector(string id){
-            var sector = _sectors.FirstOrDefault(x => x.Id.ToString() == id);
-
-            if (sector == null){
-                return NotFound();
-            }
-
-            return Ok(sector);
-        }
+        private string FindParentName(Guid id) => _context?.Sectors.FirstOrDefault(x => x.Id == id)?.Name ?? SectorData.Unspecified;
     }
 }
