@@ -25,6 +25,6 @@ jobs:
       run: |
         cd backend/ 
         dotnet run &
-        sleep 20
+        sleep 10
         cd ../api_tests/ 
         newman run --insecure H_Collection.postman_collection.json --environment H_Project.postman_environment.json
