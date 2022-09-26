@@ -23,7 +23,7 @@ namespace Backend.Controllers.Aids
 
         public static bool CheckName(string fullName)
         {
-            string pattern = @"^[a-z ,.'-]+$";
+            string pattern = @"/^[a-z ,.'-]+$/i";
             Regex regex = new Regex(pattern);
             return regex.IsMatch(fullName);
         }
