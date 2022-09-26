@@ -19,7 +19,7 @@ namespace Backend.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] FormViewModel form)
         {
-            if (string.IsNullOrWhiteSpace(form.SubmitterName.Trim()) || SectorHandler.CheckName(form.SubmitterName))
+            if (string.IsNullOrWhiteSpace(form.SubmitterName.Trim()) || SectorHandler.CheckName(form.SubmitterName) == false)
             {
                 return BadRequest("Invalid submitter name");
             }
