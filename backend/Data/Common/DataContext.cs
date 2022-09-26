@@ -95,6 +95,7 @@ namespace Backend.Data.Common
 
         public DbSet<SectorData> Sectors { get; set; }
         public DbSet<FormData> Forms { get; set; }
+        public DbSet<FormSectorData> FormSectors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -102,6 +103,7 @@ namespace Backend.Data.Common
 
             builder.Entity<SectorData>().Property(p => p.Id);
             builder.Entity<FormData>().Property(p => p.Id);
+            builder.Entity<FormSectorData>().Property(p => p.Id);
 
             builder.Entity<SectorData>().HasData(
                 GenerateSectors()

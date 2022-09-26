@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Backend.Data.Form;
 using Backend.Data.Common;
 using Backend.ViewModels;
+using Backend.Controllers.Aids;
 
 namespace Backend.Controllers
 {
@@ -22,6 +23,10 @@ namespace Backend.Controllers
             {
                 return BadRequest();
             }
+
+            // if (sectorNames.Length == 0 || SectorHandler.ContainsSectors(sectorNames, _context!.Sectors.ToList()) == false){
+            //     return BadRequest();
+            // }
 
             FormData formData = new() {
                 Id = Guid.NewGuid(),
