@@ -17,14 +17,14 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] FormViewModel form, [FromQuery] string[] sectorNames)
+        public IActionResult Create([FromBody] FormViewModel form)
         {
             if (string.IsNullOrWhiteSpace(form.SubmitterName.Trim()))
             {
                 return BadRequest();
             }
 
-            if (sectorNames.Length == 0 || SectorHandler.ContainsSectors(sectorNames, _context!.Sectors.ToList()) == false){
+            if (form.SectorNames.Length == 0 || SectorHandler.ContainsSectors(form.SectorNames, _context!.Sectors.ToList()) == false){
                 return BadRequest();
             }
 
@@ -34,7 +34,11 @@ namespace Backend.Controllers
                 CreatedAt = form.CreatedAt
             };
 
+            var sectorForms = SectorHandler.Map(_context!.Sectors, formData, form.SectorNames);
+
             _context.Forms?.Add(formData);
+            _context.FormSectors.AddRange(sectorForms);
+            
             _context.SaveChanges();
 
             return CreatedAtAction(nameof(Create), new {Form = formData});
