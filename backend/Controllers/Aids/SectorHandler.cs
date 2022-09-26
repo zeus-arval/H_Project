@@ -23,9 +23,10 @@ namespace Backend.Controllers.Aids
 
         public static bool CheckName(string fullName)
         {
-            string pattern = @"/^[a-z ,.'-]+$/i";
+            string pattern = @"^[a-zA-Z ,.'-]+$";
             Regex regex = new Regex(pattern);
-            return regex.IsMatch(fullName);
+            bool nameIsValid = regex.IsMatch(fullName);
+            return nameIsValid;
         }
 
         public static IEnumerable<FormSectorData> Map(IEnumerable<SectorData> sectors, FormData form, string[] formSectorNames)
