@@ -17,16 +17,16 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] FormViewModel form)
+        public IActionResult Create([FromBody] FormViewModel form, [FromQuery] string[] sectorNames)
         {
             if (string.IsNullOrWhiteSpace(form.SubmitterName.Trim()))
             {
                 return BadRequest();
             }
 
-            // if (sectorNames.Length == 0 || SectorHandler.ContainsSectors(sectorNames, _context!.Sectors.ToList()) == false){
-            //     return BadRequest();
-            // }
+            if (sectorNames.Length == 0 || SectorHandler.ContainsSectors(sectorNames, _context!.Sectors.ToList()) == false){
+                return BadRequest();
+            }
 
             FormData formData = new() {
                 Id = Guid.NewGuid(),

@@ -11,7 +11,7 @@ namespace Backend.Controllers.Aids
         {
             foreach(string name in sectorNames)
             {
-                if (sectors.Any(x => x.Name == name) == false){
+                if (sectors.Any(x => x.Name == name.Trim()) == false){
                     return false;
                 }
             }
