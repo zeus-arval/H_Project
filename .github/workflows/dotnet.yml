@@ -17,5 +17,9 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
+
     - name: Restore dependencies
       run: cd backend/ && dotnet restore
+
+    - name: Test API
+      run: cd api_tests/ && newman run --insecure H_Collection.postman_collection.json --environment H_Project.postman_environment.json
