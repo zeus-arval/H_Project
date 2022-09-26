@@ -38,10 +38,10 @@ namespace Backend.Controllers
 
             _context.Forms?.Add(formData);
             _context.FormSectors.AddRange(sectorForms);
-            
+
             _context.SaveChanges();
 
-            return CreatedAtAction(nameof(Create), new {Form = formData});
+            return CreatedAtAction(nameof(Create), new {Submitter = formData.SubmitterName, CreatedAt = formData.CreatedAt, SectorNames = form.SectorNames});
         }
     }
 }
