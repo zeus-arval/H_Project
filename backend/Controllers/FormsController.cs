@@ -19,13 +19,14 @@ namespace Backend.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] FormViewModel form)
         {
-            if (string.IsNullOrWhiteSpace(form.SubmitterName.Trim()))
+            if (string.IsNullOrWhiteSpace(form.SubmitterName.Trim()) || SectorHandler.CheckName(form.SubmitterName))
             {
-                return BadRequest();
+                return BadRequest("Invalid submitter name");
             }
 
-            if (form.SectorNames.Length == 0 || SectorHandler.ContainsSectors(form.SectorNames, _context!.Sectors.ToList()) == false){
-                return BadRequest();
+            if (form.SectorNames.Length == 0 || SectorHandler.ContainsSectors(form.SectorNames, _context!.Sectors.ToList()) == false)
+            {
+                return BadRequest("Invalid sectors were choosen");
             }
 
             FormData formData = new() {

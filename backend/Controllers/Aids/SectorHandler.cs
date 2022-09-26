@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Backend.Data.Form;
 using Backend.ViewModels;
@@ -18,6 +19,13 @@ namespace Backend.Controllers.Aids
             }
 
             return true;
+        }
+
+        public static bool CheckName(string fullName)
+        {
+            string pattern = @"^[a-z ,.'-]+$";
+            Regex regex = new Regex(pattern);
+            return regex.IsMatch(fullName);
         }
 
         public static IEnumerable<FormSectorData> Map(IEnumerable<SectorData> sectors, FormData form, string[] formSectorNames)
