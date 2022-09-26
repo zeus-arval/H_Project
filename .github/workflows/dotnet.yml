@@ -22,4 +22,9 @@ jobs:
       run: cd backend/ && dotnet restore
 
     - name: Test API
-      run: cd api_tests/ && newman run --insecure H_Collection.postman_collection.json --environment H_Project.postman_environment.json
+      run: |
+        cd backend/ 
+        dotnet run &
+        sleep 20
+        cd ../api_tests/ 
+        newman run --insecure H_Collection.postman_collection.json --environment H_Project.postman_environment.json
