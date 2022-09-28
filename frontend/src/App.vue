@@ -1,39 +1,27 @@
-<script setup lang="ts">
-</script>
-
-<template>
-  <main>
-    <div>
-      
-    </div>
-  </main>
+<template v-cloak>
+  <component :is="layout">
+    <router-view />
+  </component>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script lang="ts">
+import MainLayout from "@/layouts/MainLayout.vue";
+import MainView from "@/views/MainView.vue";
+import "@/assets/style.css";
+import "vue";
+import { defineComponent } from 'vue';
+import { useRoute } from "vue-router";
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+const route = useRoute();
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+export default defineComponent({
+ computed: {
+    layout() {
+      return MainLayout;
+    },
+  },
+  components: {
+    MainLayout,
+  },
+});
+</script>

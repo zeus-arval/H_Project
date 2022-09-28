@@ -1,0 +1,142 @@
+.wallpaper-clouds {
+    background: url(/src/assets/cloud_picture.png) no-repeat center center fixed;
+    min-width: 100vh;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.form-container{    
+    background: #FFFFFF;
+    border: 1px solid #E4E4E4;
+    box-shadow: 0px 0px 40px rgb(20 24 192 / 30%);
+    border-radius: 15px;
+    height: 41em;
+    width: 45em;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-description{        
+    width: 14em;
+    left: 467px;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 45px;
+    text-align: center;
+    color: #000140;
+    margin: 4em auto 2.5em;
+}
+
+.input-container{
+    display: flex;
+    flex-direction: row;
+    column-gap: 1em;
+    margin-left: 10em;
+}
+
+.text-column{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    column-gap: 40px;
+    row-gap: 30px;
+}
+
+.text-label{
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 40px;
+    color: #000140;
+}
+
+.input-column{
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    row-gap: 40px;
+}
+
+.input-box{
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: #818181;;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    width: 12em;
+    color: #000140;
+}
+
+.input-box:focus{
+    background: #FBEBEE;
+}
+
+.select-box{
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: #818181;;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    width: 12em;
+}
+
+.select-box:focus{
+    background: #FBEBEE;
+}
+
+.option-text{
+    color: #000140;
+}
+
+.check-box{
+    display: flex;
+    flex-direction: row;
+    margin: 4em 1em 1em 28.2em;
+    transform: scale(2.5);
+}
+
+.agree-to-terms-text{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 40px;
+}
+
+.button-container{
+    margin: 4.2em auto;
+}
+
+.button-text{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 40px;
+    color: #F5F5F5;
+}
+
+.button-text:active{
+    color:#81afec;
+}
+
+button{
+    background: #1418C0;
+    box-shadow:0px 0px 30px rgba(20, 24, 192, 0.3);
+    border-radius: 45px;
+    width: 16em;
+    height: 4em;
+}
+
+button:active{
+    box-shadow: 0px 0px 20px rgba(20, 24, 192, 0.3);
+}

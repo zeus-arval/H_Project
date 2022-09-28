@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "i": "^0.3.7",
-    "vue": "^3.2.38"
+    "poppins-font": "^1.0.1",
+    "vue": "^3.2.38",
+    "vue-resource": "^1.5.3",
+    "vue-router": "^4.0.13"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
