@@ -1,5 +1,18 @@
+button{
+    background: #1418C0;
+    box-shadow:0px 0px 30px rgba(20, 24, 192, 0.3);
+    border-radius: 45px;
+    width: 16em;
+    height: 4em;
+    position: absolute;
+}
+
+button:active{
+    box-shadow: 0px 0px 20px rgba(20, 24, 192, 0.3);
+}
+
 .wallpaper-clouds {
-    background: url(/src/assets/cloud_picture.png) no-repeat center center fixed;
+    background: url(/src/assets/img/cloud_picture.png) no-repeat center center fixed;
     min-width: 100vh;
     min-height: 100vh;
     display: flex;
@@ -105,7 +118,7 @@
 }
 
 .agree-to-terms-text{
-    font-family: 'Inter';
+    font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 10px;
@@ -113,7 +126,7 @@
 }
 
 .button-container{
-    margin: 4.2em auto;
+    margin: 4.2em 16em;
 }
 
 .button-text{
@@ -129,14 +142,71 @@
     color:#81afec;
 }
 
-button{
-    background: #1418C0;
-    box-shadow:0px 0px 30px rgba(20, 24, 192, 0.3);
-    border-radius: 45px;
-    width: 16em;
-    height: 4em;
+.form-result-border{
+    background: #F4F5FC;
+    box-shadow: 0px 0px 40px rgb(20 24 192 / 30%);
+    border-radius: 10px;
+    width: 25em;
+    height: 27em;
+    margin: auto;
 }
 
-button:active{
-    box-shadow: 0px 0px 20px rgba(20, 24, 192, 0.3);
+.result-picture-container{
+    background: #FFFFFF;
+    border-radius: 10px;
+    width: auto;
+    height: 15em;
+    display: flex;
+    align-content: center;
+}
+
+.result-picture-box{
+    margin: auto;
+    width: 12em;
+    height: 12em;
+    background: url(/src/assets/img/success.png) no-repeat;
+    background-size: cover;
+}
+
+.message-box{
+    margin-top: 2em;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 45px;
+    text-align: center;
+    color: #000140;
+}
+
+.form-result-button-container{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 40px;
+    color: #F5F5F5;
+    display: flex;
+    justify-content: center;
+    margin-top: 2.8em;
+}
+
+.multiselect__option--highlight.multiselect__option {
+    background: #4d4fc4;
+    color: white;    
+}
+
+.multiselect__option--highlight.multiselect__option::after{
+    background: #4d4fc4;
+    color: white;    
+}
+/* .multiselect__option--highlight.multiselect__option--selected.multiselect__option:after{
+    background: #4d4fc4;
+} */
+.multiselect__option--selected.multiselect__option{
+    background: #4d4fc4;
+}
+
+span.multiselect__tag{
+    background-color: #1418C0;
 }
