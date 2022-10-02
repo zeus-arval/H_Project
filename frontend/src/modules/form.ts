@@ -1,7 +1,7 @@
 export interface FormData {
   submitterName: string;
   createdAt: Date;
-  SectorNames: string[];
+  sectorNames: string[];
 }
 
 export interface State {

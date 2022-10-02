@@ -165,11 +165,19 @@ button:active{
     align-content: center;
 }
 
-.result-picture-box{
+.success-result-picture-box{
     margin: auto;
     width: 12em;
     height: 12em;
     background: url(/src/assets/img/success.png) no-repeat;
+    background-size: cover;
+}
+
+.failure-result-picture-box{
+    margin: auto;
+    width: 12em;
+    height: 12em;
+    background: url(/src/assets/img/fail.png) no-repeat;
     background-size: cover;
 }
 

@@ -24,7 +24,7 @@ export const useFormsStore = defineStore('formsStore', () => {
       forms.value = allForms;
     }
     
-    return apiAddForm.response.value?.submitterName;
+    return apiAddForm.response.value;
   };
 
   return {

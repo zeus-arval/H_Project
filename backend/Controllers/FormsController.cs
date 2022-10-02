@@ -42,7 +42,7 @@ namespace Backend.Controllers
 
             _context.SaveChanges();
 
-            return CreatedAtAction(nameof(Create), new {Submitter = formData.SubmitterName, CreatedAt = formData.CreatedAt, SectorNames = form.SectorNames});
+            return CreatedAtAction(nameof(Create), new {SubmitterName = formData.SubmitterName, CreatedAt = formData.CreatedAt, SectorNames = form.SectorNames});
         }
     }
 }

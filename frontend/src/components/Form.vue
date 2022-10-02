@@ -81,6 +81,7 @@
     import type { Ref } from "vue";
     import { useRouter } from "vue-router";
 
+    const emit = defineEmits(['close']);
     const sectorsStore = useSectorsStore();
     const { sectors } = storeToRefs(sectorsStore);
     const sectorNames = ref<string[]>([]);
@@ -91,7 +92,7 @@
     const form: Ref<FormData> = ref({
         submitterName: "",
         createdAt: new Date("2022-09-26T09:53:46.318Z"),
-        SectorNames: [],
+        sectorNames: [],
     });
     const submitterName = ref("");
 
@@ -103,8 +104,11 @@
     const agreedToTerms = ref(false);
     const agreedToTermsNotSelected = ref(false);
 
+    const props = defineProps(['errorOccured']);
+
     onMounted(async () => {
         await sectorsStore.load();
+        
         sectors.value.forEach(function (value){
             sectorNames.value.push(value.name);
         });
@@ -112,7 +116,7 @@
 
     watch(choosenSectors, (count) => {
         sectorsChosenCount.value = choosenSectors.value.length;
-        form.value.SectorNames = choosenSectors.value!;
+        form.value.sectorNames = choosenSectors.value!;
         sectorsAreInvalid.value = false;
     });
 
@@ -135,6 +139,8 @@
         
     });
 
+    const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+    
     const add = async () => {
         if (!form.value.submitterName){
             nameIsInvalid.value = true;
@@ -143,8 +149,9 @@
             return;
         }
 
-        if (form.value.SectorNames.length == 0){
+        if (form.value.sectorNames.length == 0){
             sectorsAreInvalid.value = true;
+            console.log("Sectors must be selected");
 
             return;
         }
@@ -153,14 +160,27 @@
 
         if (agreedToTerms.value == false){
             agreedToTermsNotSelected.value = true;
-            console.log(agreedToTerms.value);
+            console.log("Agree to terms must be selected");
             
             return;
         }
 
-        let response = addForm({ ...form.value });
-        let id = await response;
-        console.log(id);
+        form.value.createdAt = new Date();
+        let resp = addForm({ ...form.value });
+        let response = await resp;
+
+        if (response?.submitterName == form.value?.submitterName && equals(response?.sectorNames, form.value?.sectorNames)){
+            form.value = {
+                submitterName: "",
+                createdAt: new Date("2022-09-26T09:53:46.318Z"),
+                sectorNames: []
+            };
+            
+            emit('close', false);
+        }
+        else{
+            emit('close', true);
+        }
     };
 
 </script>
