@@ -13,16 +13,31 @@
                 </div>
             </div>
             <div class="input-column">
-                <input type="text" class="input-box">
-                <!-- <select id="multiple-select" class="select-box">
-                    <option class="option-text">Construction materials</option>
-                    <option class="option-text">Construction materials</option>
-                    <option class="option-text">Construction materials</option>
-                    <option class="option-text">Construction materials</option>
-                </select> --> 
-                <multiselect v-model="value" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="false" placeholder="Pick some" label="name" track-by="name" max="4" :preselect-first="false">
-                    <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} options selected</span></template>
-                </multiselect>
+                <div class="input-name">
+                    <input
+                        id="submitterName"
+                        name="submitterName"
+                        v-model="form.submitterName"
+                        class="input-box"
+                        minlength="2"
+                        maxlength="30"
+                        required
+                    />
+                </div>
+
+                <Multiselect
+                mode="multiple"
+                v-model="choosenSectors"
+                placeholder="Select sectors"
+                :close-on-select="false"
+                :options="sectorNames"
+                >
+                    <template v-slot:multiplelabel="{ sectorNames }" >
+                        <div class="multiselect-multiple-label">
+                        {{ sectorsChosenCount }} sectors selected
+                        </div>
+                    </template>
+                </Multiselect>
             </div>
         </div>
         
@@ -34,7 +49,7 @@
         </div>
 
         <div class="button-container">
-            <button>
+            <button @click="add()">
                 <div class="button-text">
                     Save
                 </div>
@@ -43,38 +58,57 @@
     </div>
 </template>
 
-<script lang="ts">
-    // import { SectorData } from "@/modules/sector";
-    // import { useSectorsStore } from "@/stores/sectorsStore";
-    import Multiselect from 'vue-multiselect';
+<script setup lang="ts">
+    import type { SectorData } from "@/modules/sector";
+    import type { FormData } from "@/modules/form";
+    import Multiselect from '@vueform/multiselect'
     import { storeToRefs } from "pinia";
-    // import { onMounted, ref, Ref, watch } from "vue";
+    import { useSectorsStore } from "@/stores/sectorsStore";
+    import { useFormsStore } from "@/stores/formsStore";
+    import { onMounted, watch, ref } from "vue";
+    import type { Ref } from "vue";
     import { useRouter } from "vue-router";
 
-    // const sectorsStore = useSectorsStore();
-    // const options = storeToRefs(sectorsStore);
+    const sectorsStore = useSectorsStore();
+    const { sectors } = storeToRefs(sectorsStore);
+    const sectorNames = ref<string[]>([]);
+    const choosenSectors = ref<string[]>([]);
+    const sectorsChosenCount = ref(0);
 
-    export default {
-        components: { Multiselect },
-        data () {
-            return {
-                value: [],
-                options: [
-                    { name: 'Vue.js', language: 'JavaScript' },
-                    { name: 'Adonis', language: 'JavaScript' },
-                    { name: 'Rails', language: 'Ruby' },
-                    { name: 'Sinatra', language: 'Ruby' },
-                    { name: 'Laravel', language: 'PHP' },
-                    { name: 'Phoenix', language: 'Elixir' }
-                ],
-            }
-        }
-    }
+    const { addForm } = useFormsStore();
+    const form: Ref<FormData> = ref({
+        submitterName: "",
+        createdAt: "2022-09-26T09:53:46.318Z",
+        SectorNames: [],
+    })
+    let isOpen = true;
+
+    onMounted(async () => {
+        await sectorsStore.load();
+        sectors.value.forEach(function (value){
+            sectorNames.value.push(value.name);
+        });
+
+        console.log(sectorNames);
+    });
+
+    watch(choosenSectors, (count) => {
+        sectorsChosenCount.value = choosenSectors.value.length;
+        form.value.SectorNames = choosenSectors.value;
+    });
+
+    const add = async () => {
+        console.log("Adding");
+        let response = addForm({ ...form.value });
+        let id = await response;
+        console.log(id);
+
+    };
 
 </script>
 
+<style src="@vueform/multiselect/themes/default.css"></style>
 <style>
-    @import url('https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css');
     @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Roboto&display=swap');
 </style>
