@@ -106,17 +106,35 @@
 
     const props = defineProps(['errorOccured']);
 
-    onMounted(async () => {
+    onMounted(async () => {        
+        let parentTree: string[] = [];
+        
         await sectorsStore.load();
         
-        sectors.value.forEach(function (value){
-            sectorNames.value.push(value.name);
+        sectors.value.forEach(function (value: SectorData){    
+            const parentNumInTree = parentTree.indexOf(value.parentName);
+            if (parentNumInTree != -1){ // Если у элемента есть родитель
+                if (parentTree.length == parentNumInTree + 1){ //если дерево заканчивается на родителе
+                    parentTree.push(value.name);
+                }
+                else{ // если дерево не заканчивается на родителе
+                    parentTree.length = parentNumInTree + 1;
+                    parentTree.push(value.name);
+                }
+            }
+            else{ // Если такого родителя еще не было в списке
+                parentTree.length = 0;
+
+                parentTree.push(value.name);
+            }
+            
+            sectorNames.value.push('\xa0'.repeat(parentNumInTree + 1) + value.name);
         });
     });
 
     watch(choosenSectors, (count) => {
         sectorsChosenCount.value = choosenSectors.value.length;
-        form.value.sectorNames = choosenSectors.value!;
+        form.value.sectorNames = choosenSectors.value!.map(x => x.substring(x.lastIndexOf('\xa0') == -1 ? 0 : x.lastIndexOf('\xa0') + 1));
         sectorsAreInvalid.value = false;
     });
 
@@ -142,6 +160,7 @@
     const equals = (actual: string[], expected: string[]) => JSON.stringify(actual) === JSON.stringify(expected);
     
     const add = async () => {
+        console.log(form.value)
         if (!form.value.submitterName){
             nameIsInvalid.value = true;
             console.log("Submitter name is invalid");

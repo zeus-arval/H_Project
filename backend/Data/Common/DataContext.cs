@@ -11,8 +11,8 @@ namespace Backend.Data.Common
     {
         private readonly List<(int Level, string Name)> levelsNamesArray = new()
         {
-            (0, "Construction materials"),
-            (1, "Manufacturing"),
+            (0, "Manufacturing"),
+            (1, "Construction materials"),
             (1, "Electronics and Optics"),
             (1, "Food and Beverage"),
             (2, "Bakery & confectionery products"),
