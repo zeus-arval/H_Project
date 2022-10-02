@@ -139,7 +139,7 @@
         
     });
 
-    const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+    const equals = (actual: string[], expected: string[]) => JSON.stringify(actual) === JSON.stringify(expected);
     
     const add = async () => {
         if (!form.value.submitterName){
