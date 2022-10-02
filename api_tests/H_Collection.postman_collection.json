@@ -26,15 +26,25 @@
 					}
 				}
 			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "{{endpoint}}/sectors",
+					"raw": "https://localhost:7157/api/sectors",
+					"protocol": "https",
 					"host": [
-						"{{endpoint}}"
+						"localhost"
 					],
+					"port": "7157",
 					"path": [
+						"api",
 						"sectors"
 					]
 				}
@@ -51,7 +61,7 @@
 							"const responseJson = pm.response.json();\r",
 							"\r",
 							"pm.test(\"Add Form with sectors\", () => {\r",
-							"  pm.expect(responseJson.submitter).to.eql('Artur Valdna');\r",
+							"  pm.expect(responseJson.submitterName).to.eql('Artur Valdna');\r",
 							"  pm.expect(responseJson.createdAt).to.eql(\"2022-09-26T09:53:46.318Z\");\r",
 							"  pm.expect(responseJson.sectorNames).to.eql([\"Construction materials\", \"Manufacturing\"]);\r",
 							"});\r",
@@ -88,11 +98,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{endpoint}}/forms",
+					"raw": "https://localhost:7157/api/forms",
+					"protocol": "https",
 					"host": [
-						"{{endpoint}}"
+						"localhost"
 					],
+					"port": "7157",
 					"path": [
+						"api",
 						"forms"
 					]
 				}
@@ -137,11 +150,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{endpoint}}/forms",
+					"raw": "https://localhost:5001/api/forms",
+					"protocol": "https",
 					"host": [
-						"{{endpoint}}"
+						"localhost"
 					],
+					"port": "5001",
 					"path": [
+						"api",
 						"forms"
 					]
 				}
@@ -186,11 +202,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{endpoint}}/forms",
+					"raw": "https://localhost:5001/api/forms",
+					"protocol": "https",
 					"host": [
-						"{{endpoint}}"
+						"localhost"
 					],
+					"port": "5001",
 					"path": [
+						"api",
 						"forms"
 					]
 				}
