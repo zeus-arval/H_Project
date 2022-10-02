@@ -110,9 +110,14 @@ button:active{
     color: #000140;
 }
 
+.agree-to-terms-container{
+    display: flex;
+    flex-direction: column;
+}
+
 .check-box{
     display: flex;
-    flex-direction: row;
+    flex-direction: s;
     margin: 4em 1em 1em 28.2em;
     transform: scale(2.5);
 }
@@ -126,7 +131,7 @@ button:active{
 }
 
 .button-container{
-    margin: 4.2em 16em;
+    margin: 47em 19em 0em 19em;
 }
 
 .button-text{
@@ -191,22 +196,10 @@ button:active{
     margin-top: 2.8em;
 }
 
-.multiselect__option--highlight.multiselect__option {
-    background: #4d4fc4;
-    color: white;    
+.error-message{
+    color: red;
 }
 
-.multiselect__option--highlight.multiselect__option::after{
-    background: #4d4fc4;
-    color: white;    
-}
-/* .multiselect__option--highlight.multiselect__option--selected.multiselect__option:after{
-    background: #4d4fc4;
-} */
-.multiselect__option--selected.multiselect__option{
-    background: #4d4fc4;
-}
-
-span.multiselect__tag{
-    background-color: #1418C0;
+.agree-to-terms-error-message{
+    margin: -1em 0em 0em 19.5em;
 }

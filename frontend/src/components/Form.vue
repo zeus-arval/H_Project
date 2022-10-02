@@ -17,44 +17,56 @@
                     <input
                         id="submitterName"
                         name="submitterName"
-                        v-model="form.submitterName"
+                        v-model="submitterName"
                         class="input-box"
                         minlength="2"
-                        maxlength="30"
+                        maxlength="50"
                         required
                     />
+                    <div class="error-message" v-if="nameIsInvalid">
+                        Invalid name!
+                    </div>
                 </div>
 
-                <Multiselect
-                mode="multiple"
-                v-model="choosenSectors"
-                placeholder="Select sectors"
-                :close-on-select="false"
-                :options="sectorNames"
-                >
-                    <template v-slot:multiplelabel="{ sectorNames }" >
-                        <div class="multiselect-multiple-label">
-                        {{ sectorsChosenCount }} sectors selected
-                        </div>
-                    </template>
-                </Multiselect>
+                <div class="input-sectors">
+                    <Multiselect
+                    mode="multiple"
+                    v-model="choosenSectors"
+                    placeholder="Select sectors"
+                    :close-on-select="false"
+                    :options="sectorNames"
+                    >
+                        <template v-slot:multiplelabel="{ sectorNames }" >
+                            <div class="multiselect-multiple-label">
+                            {{ sectorsChosenCount }} sectors selected
+                            </div>
+                        </template>
+                    </Multiselect>
+
+                    <div class="error-message" v-if="sectorsAreInvalid">
+                        Choose sectors!
+                    </div>
+                </div>
             </div>
         </div>
         
-        <div class="check-box">
-            <input type="checkbox">
-            <div class="agree-to-terms-text">
-                Agree to terms
+        <div class="agree-to-terms-container">
+            <div class="check-box">
+                <input type="checkbox" v-model="agreedToTerms">
+                <div class="agree-to-terms-text">
+                    Agree to terms
+                </div>
+            </div>
+            <div class="error-message agree-to-terms-error-message" v-if="agreedToTermsNotSelected">
+                Must be selected!
             </div>
         </div>
 
-        <div class="button-container">
-            <button @click="add()">
-                <div class="button-text">
-                    Save
-                </div>
-            </button>
-        </div>
+        <button @click="add()" class="button-container">
+            <div class="button-text">
+                Save
+            </div>
+        </button>
     </div>
 </template>
 
@@ -78,31 +90,77 @@
     const { addForm } = useFormsStore();
     const form: Ref<FormData> = ref({
         submitterName: "",
-        createdAt: "2022-09-26T09:53:46.318Z",
+        createdAt: new Date("2022-09-26T09:53:46.318Z"),
         SectorNames: [],
-    })
+    });
+    const submitterName = ref("");
+
     let isOpen = true;
+    const nameIsInvalid = ref(false);
+
+    const sectorsAreInvalid = ref(false);
+
+    const agreedToTerms = ref(false);
+    const agreedToTermsNotSelected = ref(false);
 
     onMounted(async () => {
         await sectorsStore.load();
         sectors.value.forEach(function (value){
             sectorNames.value.push(value.name);
         });
-
-        console.log(sectorNames);
     });
 
     watch(choosenSectors, (count) => {
         sectorsChosenCount.value = choosenSectors.value.length;
-        form.value.SectorNames = choosenSectors.value;
+        form.value.SectorNames = choosenSectors.value!;
+        sectorsAreInvalid.value = false;
+    });
+
+    watch(submitterName, (newValue, oldValue) => {
+        if (new RegExp("^[a-zA-Z ,.'-]+$").test(newValue) == false){
+            nameIsInvalid.value = true;
+            form.value.submitterName = "";
+            
+            return;
+        }
+        else {
+            nameIsInvalid.value = false;
+            form.value.submitterName = submitterName.value;
+        }
+    });
+
+    watch(agreedToTerms, (newValue, oldValue) => {
+        agreedToTermsNotSelected.value = !agreedToTerms.value;
+        console.log(agreedToTermsNotSelected.value);
+        
     });
 
     const add = async () => {
-        console.log("Adding");
+        if (!form.value.submitterName){
+            nameIsInvalid.value = true;
+            console.log("Submitter name is invalid");
+            
+            return;
+        }
+
+        if (form.value.SectorNames.length == 0){
+            sectorsAreInvalid.value = true;
+
+            return;
+        }
+        console.log(agreedToTerms.value);
+        
+
+        if (agreedToTerms.value == false){
+            agreedToTermsNotSelected.value = true;
+            console.log(agreedToTerms.value);
+            
+            return;
+        }
+
         let response = addForm({ ...form.value });
         let id = await response;
         console.log(id);
-
     };
 
 </script>
