@@ -13,6 +13,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder => {
+    builder
+    .SetIsOriginAllowed(_ => true)
+    .AllowCredentials()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+}));
+
 var app = builder.Build();
 
 using (var scope = ((IApplicationBuilder)app).ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
@@ -27,6 +35,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("MyPolicy");
 app.UseAuthorization();
 
 app.MapControllers();
