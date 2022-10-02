@@ -9,6 +9,9 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
+        <li><a href="#built-with">UI/UX Concept</a></li>
+      </ul>
+      <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
@@ -28,6 +31,9 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+
+### UI/UX Concept
+[Figma]
 
 ### Built With
 
@@ -68,7 +74,7 @@ This is an example of how to list things you need to use the software and how to
    ```
    ```
    cd frontend/
-   chmod +x run_fronend.sh
+   chmod +x run_frontend.sh
    ./run_frontend.sh
    ```
    If you have Windows without with Command Line:
@@ -108,3 +114,4 @@ Project Link: [https://github.com/zeus-arval/H_Project](H_Project)
 [Vue.js]: https://vuejs.org/
 [dotnet-cli]: https://dotnet.microsoft.com/en-us/download
 [npm]: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+[Figma]:https://www.figma.com/file/tUK0mDkQLCZwIvQIW5B97l/Helmes?node-id=0%3A1
