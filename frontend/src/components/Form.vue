@@ -111,18 +111,18 @@
         
         await sectorsStore.load();
         
-        sectors.value.forEach(function (value: SectorData){    
+        sectors.value.forEach(function (value: SectorData){
             const parentNumInTree = parentTree.indexOf(value.parentName);
-            if (parentNumInTree != -1){ // Если у элемента есть родитель
-                if (parentTree.length == parentNumInTree + 1){ //если дерево заканчивается на родителе
+            if (parentNumInTree != -1){
+                if (parentTree.length == parentNumInTree + 1){
                     parentTree.push(value.name);
                 }
-                else{ // если дерево не заканчивается на родителе
+                else{
                     parentTree.length = parentNumInTree + 1;
                     parentTree.push(value.name);
                 }
             }
-            else{ // Если такого родителя еще не было в списке
+            else{
                 parentTree.length = 0;
 
                 parentTree.push(value.name);
